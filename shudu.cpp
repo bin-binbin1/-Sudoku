@@ -119,7 +119,7 @@ void findzeros(vector<vector<int> > t) {
                 zero_y.push_back(j);
             }
         }
-    }//ÕÒ³öËùÓĞµÄ¿Õ°×¸ñ×ÓµÄ×ø±ê
+    }//æ‰¾å‡ºæ‰€æœ‰çš„ç©ºç™½æ ¼å­çš„åæ ‡
 }
 
 bool solveone(vector<vector<int> >& t) {
@@ -135,7 +135,7 @@ bool solveone(vector<vector<int> >& t) {
                 t[zero_x[i]][zero_y[i]] = possibles[i][0];
                 flag = true;
             }
-        }//Çó½â³öÒ»½×½â
+        }//æ±‚è§£å‡ºä¸€é˜¶è§£
     } while (flag);
     if (!possibles.size()) {
         return true;
@@ -143,18 +143,18 @@ bool solveone(vector<vector<int> >& t) {
     else return false;
 }
 
-bool solvens(vector<vector<int> >& t,int depth,vector<vector<int> > &possibles) {//depthÎªµ±Ç°µÄÉî¶È ´Ó0¿ªÊ¼
+bool solvens(vector<vector<int> >& t,int depth,vector<vector<int> > &possibles) {//depthä¸ºå½“å‰çš„æ·±åº¦ ä»0å¼€å§‹
     int pos = emp[depth].id;
-    for (int i = 0; i < possibles[pos].size(); i++) {//¶ÔÓÚÃ¿Ò»¸ö¿ÉÄÜµÄ½â
-		t[zero_x[pos]][zero_y[pos]] = possibles[pos][i];//ÌîÈëµÚiÖĞ¿ÉÄÜ
+    for (int i = 0; i < possibles[pos].size(); i++) {//å¯¹äºæ¯ä¸€ä¸ªå¯èƒ½çš„è§£
+		t[zero_x[pos]][zero_y[pos]] = possibles[pos][i];//å¡«å…¥ç¬¬iä¸­å¯èƒ½
         if (isvalidone(t,zero_x[pos],zero_y[pos])) {
-            //Èç¹ûºÏ·¨
+            //å¦‚æœåˆæ³•
             if (depth == possibles.size()-1) {
                 return true;
             }
             if (solvens(t, depth + 1, possibles)) {
                 return true;
-            }//ÓĞ´íÔòÕÒÏÂÒ»¸ö,¶ÔÁË¾Í·µ»ØtrueÍË³öÑ­»·
+            }//æœ‰é”™åˆ™æ‰¾ä¸‹ä¸€ä¸ª,å¯¹äº†å°±è¿”å›trueé€€å‡ºå¾ªç¯
         }
 	}
     t[zero_x[pos]][zero_y[pos]] = 0;
@@ -165,7 +165,7 @@ bool solve(vector<vector<int> >& t) {
         return true;
     }
     
-    findzeros(t);//ÕÒ³öËùÓĞµÄ¿Õ°×¸ñ×ÓµÄ×ø±ê
+    findzeros(t);//æ‰¾å‡ºæ‰€æœ‰çš„ç©ºç™½æ ¼å­çš„åæ ‡
     vector<vector<int> > possibles = find_solves(t);
     int n = possibles.size();
     emp = new idsort[n];
@@ -187,7 +187,7 @@ int main() {
 			file >> c;
 			t.push_back(c);
 		}
-		board.push_back(t);//ÁãÎª¿Õ°×£¬1-9ÎªÌîÊı×Ö
+		board.push_back(t);//é›¶ä¸ºç©ºç™½ï¼Œ1-9ä¸ºå¡«æ•°å­—
 	}
     file.close();
     ofstream file1("answer.txt");
@@ -196,7 +196,11 @@ int main() {
         file1.close();
         return 0;
 	}
-    cout<<solve(board);
+    if(!solve(board)){
+    	cout<<"No valid answer!";
+    	file1.close();
+    	return 0;
+	}
     for (int i = 0; i < SHUDU; i++) {
             for (int j = 0; j < SHUDU; j++) {
 				file1 << board[i][j] << " ";
